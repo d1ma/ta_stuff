@@ -1,0 +1,31 @@
+<html>
+<head>
+<script src="jquery.js"></script>
+</head>
+<body>
+<a href="#" onclick="getform()">Click here to find out your grader</a>
+<form id="grader_form" style="visibility: hidden">
+Enter you sunetID: <input type="text" id="entered_sunet" name="sunet"></input>
+</form>
+<div id='result'></div>
+<script>
+
+$( "#grader_form" ).submit(function( event ) {
+  var url = "http://mycs109grader.herokuapp.com/grader?" + $.param({sunet: $('#entered_sunet').val()}); 
+  $.ajax({url: url, success:function(result){
+        $("#result").html(result);
+  }});
+  event.preventDefault();
+});
+function getform(){
+        document.getElementById('grader_form').style.visibility = "visible"
+}
+function getsunet(event){
+        event.preventDefault();
+        document.getElementById('result').innerHTML = 'your grader'
+        return false;
+}
+
+</script>
+</body>
+</html>
